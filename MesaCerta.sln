@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CE584F5F-3B1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MesaCerta.Shared", "src\MesaCerta.Shared\MesaCerta.Shared.csproj", "{E41B96DA-DA92-4643-BFB3-BB595A758F0E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MesaCerta.Server", "src\MesaCerta.Server\MesaCerta.Server.csproj", "{5FD5E904-2429-489F-977A-FA8B3ADAA64D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,8 +22,13 @@ Global
 		{E41B96DA-DA92-4643-BFB3-BB595A758F0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E41B96DA-DA92-4643-BFB3-BB595A758F0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E41B96DA-DA92-4643-BFB3-BB595A758F0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FD5E904-2429-489F-977A-FA8B3ADAA64D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FD5E904-2429-489F-977A-FA8B3ADAA64D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FD5E904-2429-489F-977A-FA8B3ADAA64D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FD5E904-2429-489F-977A-FA8B3ADAA64D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E41B96DA-DA92-4643-BFB3-BB595A758F0E} = {CE584F5F-3B11-46E2-A57C-9DBCE4985248}
+		{5FD5E904-2429-489F-977A-FA8B3ADAA64D} = {CE584F5F-3B11-46E2-A57C-9DBCE4985248}
 	EndGlobalSection
 EndGlobal
