@@ -1,9 +1,0 @@
--- AlterTable
-ALTER TABLE `Product` ADD COLUMN `saleType` ENUM('UNIT', 'WEIGHT') NOT NULL DEFAULT 'UNIT';
-
--- AlterTable
-ALTER TABLE `DiningTable` ADD COLUMN `active` BOOLEAN NOT NULL DEFAULT true;
-
--- AlterTable
-ALTER TABLE `TabItem` ADD COLUMN `saleType` ENUM('UNIT', 'WEIGHT') NOT NULL DEFAULT 'UNIT',
-    ADD COLUMN `weightGrams` INTEGER NULL;
