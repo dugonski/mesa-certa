@@ -23,6 +23,7 @@ public sealed class TcpServer(IRequestService service, TextWriter? log = null) :
     private readonly HashSet<Connection> _clients = [];
     private TcpListener? _listener;
     private Task? _acceptLoop;
+    private int _disposed;
 
     public int Port => ((IPEndPoint)(_listener ?? throw new InvalidOperationException()).LocalEndpoint).Port;
 
@@ -85,6 +86,7 @@ public sealed class TcpServer(IRequestService service, TextWriter? log = null) :
     /// <summary>Desconecta todos os clientes e para de aceitar conexões.</summary>
     public async ValueTask DisposeAsync()
     {
+        if (Interlocked.Exchange(ref _disposed, 1) == 1) return;
         _stop.Cancel();
         _listener?.Stop();
         Connection[] clients;

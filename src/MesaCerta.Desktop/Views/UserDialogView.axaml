@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MesaCerta.Desktop.ViewModels"
+             x:Class="MesaCerta.Desktop.Views.UserDialogView"
+             x:DataType="vm:UserDialogViewModel">
+  <StackPanel Spacing="14">
+    <StackPanel>
+      <TextBlock Classes="label" Text="Nome" />
+      <TextBox Text="{Binding Name}" MaxLength="100" AutomationProperties.Name="Nome" />
+    </StackPanel>
+    <StackPanel>
+      <TextBlock Classes="label" Text="Usuário" />
+      <TextBox Text="{Binding Username}" MaxLength="60" AutomationProperties.Name="Usuário" />
+    </StackPanel>
+    <StackPanel>
+      <TextBlock Classes="label" Text="Senha inicial" />
+      <TextBox Text="{Binding Password}" PasswordChar="•" MaxLength="72" AutomationProperties.Name="Senha inicial" />
+    </StackPanel>
+    <StackPanel>
+      <TextBlock Classes="label" Text="Perfil" />
+      <ComboBox ItemsSource="{Binding Roles}" SelectedIndex="{Binding RoleIndex}" PlaceholderText="Selecione um perfil" AutomationProperties.Name="Perfil" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>

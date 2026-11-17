@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MesaCerta.Desktop.ViewModels"
+             x:Class="MesaCerta.Desktop.Views.TablesDialogView"
+             x:DataType="vm:TablesDialogViewModel">
+  <StackPanel Spacing="12">
+    <StackPanel>
+      <TextBlock Classes="label" Text="Quantidade de mesas" />
+      <TextBox Text="{Binding Count}" AutomationProperties.Name="Quantidade de mesas" />
+    </StackPanel>
+    <TextBlock Classes="muted" TextWrapping="Wrap" TextAlignment="Center"
+               Text="As mesas são numeradas de 1 até a quantidade escolhida. Mesas ocupadas não podem ser desativadas." />
+  </StackPanel>
+</UserControl>

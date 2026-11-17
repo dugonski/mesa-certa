@@ -1,0 +1,127 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MesaCerta.Desktop.ViewModels"
+        xmlns:views="using:MesaCerta.Desktop.Views"
+        x:Class="MesaCerta.Desktop.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="MesaCerta"
+        Width="1440" Height="940" MinWidth="1050" MinHeight="720"
+        WindowStartupLocation="CenterScreen">
+  <Panel>
+    <!-- Login -->
+    <Panel IsVisible="{Binding !IsLoggedIn}">
+      <views:LoginView DataContext="{Binding Login}" />
+    </Panel>
+
+    <!-- Aplicação -->
+    <DockPanel IsVisible="{Binding IsLoggedIn}">
+      <Border DockPanel.Dock="Top" Height="68" Background="White" BorderBrush="{StaticResource Line}" BorderThickness="0,0,0,1" Padding="24,0">
+        <DockPanel>
+          <views:BrandView DockPanel.Dock="Left" Margin="0,0,30,0" />
+          <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="7" VerticalAlignment="Center">
+            <TextBlock Text="{Binding UserName}" Classes="muted" VerticalAlignment="Center" MaxWidth="150" TextTrimming="CharacterEllipsis" />
+            <Button Classes="icon" ToolTip.Tip="Atualizar dados" AutomationProperties.Name="Atualizar dados"
+                    Command="{Binding RefreshCommand}" IsEnabled="{Binding !Busy}">
+              <Path Classes="icon" Data="{x:Static vm:Icons.Refresh}" Stroke="#617088" />
+            </Button>
+            <Button Classes="icon" ToolTip.Tip="Sair" AutomationProperties.Name="Sair"
+                    Command="{Binding LogoutCommand}" IsEnabled="{Binding !Busy}">
+              <Path Classes="icon" Data="{x:Static vm:Icons.LogOut}" Stroke="#617088" />
+            </Button>
+          </StackPanel>
+          <ItemsControl ItemsSource="{Binding Navigation}" VerticalAlignment="Stretch">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <StackPanel Orientation="Horizontal" Spacing="5" />
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate x:DataType="vm:NavItemViewModel">
+                <Button Classes="nav" Classes.active="{Binding IsActive}" Height="67"
+                        Command="{Binding Command}" CommandParameter="{Binding Id}">
+                  <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Path Classes="icon" Data="{Binding Icon}" />
+                    <TextBlock Text="{Binding Title}" VerticalAlignment="Center" />
+                  </StackPanel>
+                </Button>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </DockPanel>
+      </Border>
+
+      <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <DockPanel Margin="24,20" MaxWidth="1800">
+          <DockPanel DockPanel.Dock="Top" Margin="0,0,0,18" MinHeight="42">
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="8">
+              <Button Classes="secondary" Content="Voltar" IsVisible="{Binding ShowBack}" Command="{Binding BackCommand}" />
+              <Button Classes="secondary" Content="Gerenciar mesas" IsVisible="{Binding ShowManageTables}" Command="{Binding ManageTablesCommand}" />
+              <Button Classes="primary" IsVisible="{Binding ShowNewProduct}" Command="{Binding NewProductCommand}">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                  <Path Classes="icon" Data="{x:Static vm:Icons.Plus}" Stroke="White" />
+                  <TextBlock Text="Novo produto" />
+                </StackPanel>
+              </Button>
+              <Button Classes="primary" IsVisible="{Binding ShowNewUser}" Command="{Binding NewUserCommand}">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                  <Path Classes="icon" Data="{x:Static vm:Icons.Plus}" Stroke="White" />
+                  <TextBlock Text="Novo usuário" />
+                </StackPanel>
+              </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="14" VerticalAlignment="Center">
+              <TextBlock Classes="h1" Text="{Binding HeadingTitle}" />
+              <TextBlock Classes="muted" Text="{Binding RecordId}" IsVisible="{Binding RecordId, Converter={x:Static ObjectConverters.IsNotNull}}" VerticalAlignment="Bottom" Margin="0,0,0,5" />
+            </StackPanel>
+          </DockPanel>
+
+          <Border DockPanel.Dock="Top" Classes="alert" Margin="0,0,0,16" IsVisible="{Binding ShowAppError}">
+            <DockPanel>
+              <Button DockPanel.Dock="Right" Classes="icon" Width="28" Height="28" AutomationProperties.Name="Dispensar erro" Command="{Binding DismissErrorCommand}">
+                <Path Classes="icon" Data="{x:Static vm:Icons.Close}" Stroke="#AD3B3B" Width="14" Height="14" />
+              </Button>
+              <TextBlock Classes="error" Text="{Binding Error}" VerticalAlignment="Center" />
+            </DockPanel>
+          </Border>
+
+          <ContentControl Content="{Binding Content}" VerticalAlignment="Top" />
+        </DockPanel>
+      </ScrollViewer>
+    </DockPanel>
+
+    <!-- Aviso de sucesso -->
+    <Border Classes="toast" IsVisible="{Binding HasToast}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,78,24,0" IsHitTestVisible="False">
+      <StackPanel Orientation="Horizontal" Spacing="10">
+        <Path Classes="icon" Data="{x:Static vm:Icons.Check}" Stroke="White" />
+        <TextBlock Text="{Binding Toast}" VerticalAlignment="Center" />
+      </StackPanel>
+    </Border>
+
+    <!-- Janela de operação -->
+    <Border Background="#66243044" IsVisible="{Binding Modal, Converter={x:Static ObjectConverters.IsNotNull}}">
+      <Border Background="White" CornerRadius="10" Width="460" Padding="24" HorizontalAlignment="Center" VerticalAlignment="Center" BoxShadow="0 10 40 0 #33000000">
+        <StackPanel Spacing="18">
+          <DockPanel>
+            <Button DockPanel.Dock="Right" Classes="icon" AutomationProperties.Name="Fechar janela"
+                    Command="{Binding Modal.CancelCommand, FallbackValue={x:Null}}" IsEnabled="{Binding !Busy}">
+              <Path Classes="icon" Data="{x:Static vm:Icons.Close}" Stroke="#617088" />
+            </Button>
+            <TextBlock Classes="h2" Text="{Binding Modal.Title, FallbackValue=''}" VerticalAlignment="Center" />
+          </DockPanel>
+          <Border Classes="alert" IsVisible="{Binding Modal.HasError, FallbackValue=False}">
+            <TextBlock Classes="error" Text="{Binding Modal.Error, FallbackValue=''}" />
+          </Border>
+          <ContentControl Content="{Binding Modal}" />
+          <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
+            <Button Classes="secondary" Content="Cancelar" Command="{Binding Modal.CancelCommand, FallbackValue={x:Null}}" IsEnabled="{Binding !Busy}" />
+            <Button Classes="primary" Content="{Binding Modal.SubmitLabel, FallbackValue=''}"
+                    Command="{Binding Modal.SubmitCommand, FallbackValue={x:Null}}"
+                    IsEnabled="{Binding Modal.CanSubmit, FallbackValue=False}" />
+          </StackPanel>
+          <TextBlock Classes="error" IsVisible="{Binding Modal.IsStale, FallbackValue=False}"
+                     Text="Esta ficha mudou em outro terminal. Feche esta janela e confira os dados atualizados." />
+        </StackPanel>
+      </Border>
+    </Border>
+  </Panel>
+</Window>

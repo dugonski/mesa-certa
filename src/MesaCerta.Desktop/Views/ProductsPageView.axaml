@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MesaCerta.Desktop.ViewModels"
+             x:Class="MesaCerta.Desktop.Views.ProductsPageView"
+             x:DataType="vm:ProductsPageViewModel">
+  <Border Classes="panel">
+    <StackPanel>
+      <Border Classes="headrow">
+        <Grid Classes="thead" ColumnDefinitions="2*,*,*,*,90">
+          <TextBlock Text="Produto" />
+          <TextBlock Grid.Column="1" Text="Categoria" />
+          <TextBlock Grid.Column="2" Text="Preço" />
+          <TextBlock Grid.Column="3" Text="Status" />
+        </Grid>
+      </Border>
+      <ItemsControl ItemsSource="{Binding Rows}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="vm:ProductRowViewModel">
+            <Border Classes="row">
+              <Grid ColumnDefinitions="2*,*,*,*,90">
+                <TextBlock Text="{Binding Name}" FontWeight="SemiBold" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="1" Text="{Binding Category}" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center" />
+                <Border Grid.Column="3" Classes="badge" Classes.paid="{Binding IsActive}">
+                  <TextBlock Text="{Binding Status}" />
+                </Border>
+                <Button Grid.Column="4" Classes="link" Content="Editar" Command="{Binding EditCommand}" HorizontalAlignment="Right" />
+              </Grid>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+      <StackPanel IsVisible="{Binding IsEmpty}" HorizontalAlignment="Center" Margin="20,40" Spacing="6">
+        <TextBlock Text="Seu cardápio começa aqui" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Center" />
+        <TextBlock Text="Cadastre o primeiro produto para liberar os lançamentos." Classes="muted" HorizontalAlignment="Center" />
+      </StackPanel>
+    </StackPanel>
+  </Border>
+</UserControl>

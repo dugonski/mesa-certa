@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MesaCerta.Desktop.ViewModels"
+             x:Class="MesaCerta.Desktop.Views.CloseDialogView"
+             x:DataType="vm:CloseDialogViewModel">
+  <Border Classes="confirm">
+    <StackPanel Spacing="6" HorizontalAlignment="Center">
+      <TextBlock Text="{Binding SummaryText}" Classes="muted" HorizontalAlignment="Center" />
+      <TextBlock Text="{Binding TotalText}" FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Center" />
+      <TextBlock Text="Encerrar a conta e liberar a mesa?" Classes="muted" HorizontalAlignment="Center" />
+    </StackPanel>
+  </Border>
+</UserControl>

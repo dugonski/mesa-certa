@@ -1,0 +1,73 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MesaCerta.Desktop.ViewModels"
+             xmlns:views="using:MesaCerta.Desktop.Views"
+             x:Class="MesaCerta.Desktop.Views.PaymentWorkspaceView"
+             x:DataType="vm:PaymentWorkspaceViewModel">
+  <Grid ColumnDefinitions="*,20,320">
+    <Border Classes="panel" VerticalAlignment="Top">
+      <StackPanel>
+        <DockPanel Margin="20,18">
+          <views:StatusBadge DockPanel.Dock="Right" Status="{Binding Status}" />
+          <TextBlock Classes="h2" Text="Conferência da conta" />
+        </DockPanel>
+        <Border Classes="headrow">
+          <Grid Classes="thead" ColumnDefinitions="110,*,120">
+            <TextBlock Text="Qtd./kg" />
+            <TextBlock Grid.Column="1" Text="Produto" />
+            <TextBlock Grid.Column="2" Text="Total" HorizontalAlignment="Right" />
+          </Grid>
+        </Border>
+        <ItemsControl ItemsSource="{Binding Lines}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate x:DataType="vm:OrderLineViewModel">
+              <Border Classes="row">
+                <Grid ColumnDefinitions="110,*,120">
+                  <TextBlock Text="{Binding Quantity}" />
+                  <StackPanel Grid.Column="1" Spacing="3">
+                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
+                    <TextBlock Text="{Binding Note}" Classes="muted" IsVisible="{Binding HasNote}" TextWrapping="Wrap" />
+                  </StackPanel>
+                  <TextBlock Grid.Column="2" Text="{Binding Total}" HorizontalAlignment="Right" />
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <TextBlock Classes="empty" Text="Nenhum item lançado." IsVisible="{Binding LinesEmpty}" />
+      </StackPanel>
+    </Border>
+
+    <Border Grid.Column="2" Classes="panel" Padding="24" VerticalAlignment="Top">
+      <StackPanel>
+        <TextBlock Classes="h2" Text="Pagamento" />
+        <TextBlock Text="{Binding TotalText}" FontSize="34" FontWeight="SemiBold" Margin="0,24" />
+        <StackPanel Orientation="Horizontal" Spacing="7" Margin="0,0,0,15" IsVisible="{Binding HasPaidInfo}">
+          <Path Classes="icon" Data="{x:Static vm:Icons.Check}" Stroke="#597969" Width="16" Height="16" />
+          <TextBlock Text="{Binding PaidInfo}" Foreground="#597969" FontSize="12" VerticalAlignment="Center" />
+        </StackPanel>
+        <StackPanel Spacing="12">
+          <Button Classes="primary full" IsVisible="{Binding ShowPay}" IsEnabled="{Binding PayEnabled}" Command="{Binding PayCommand}">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <Path Classes="icon" Data="{x:Static vm:Icons.Card}" Stroke="White" />
+              <TextBlock Text="Pagar" />
+            </StackPanel>
+          </Button>
+          <Button Classes="secondary full" IsVisible="{Binding ShowExport}" IsEnabled="{Binding Enabled}" Command="{Binding ExportCommand}">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <Path Classes="icon" Data="{x:Static vm:Icons.Download}" Stroke="#45546A" />
+              <TextBlock Text="Salvar XML" />
+            </StackPanel>
+          </Button>
+          <Button Classes="primary full" IsVisible="{Binding ShowClose}" IsEnabled="{Binding Enabled}" Command="{Binding CloseCommand}">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <Path Classes="icon" Data="{x:Static vm:Icons.Check}" Stroke="White" />
+              <TextBlock Text="Encerrar ficha" />
+            </StackPanel>
+          </Button>
+          <Button Classes="secondary full" Content="Voltar ao pedido" IsVisible="{Binding ShowBackToOrder}" IsEnabled="{Binding Enabled}" Command="{Binding EditOrderCommand}" />
+        </StackPanel>
+      </StackPanel>
+    </Border>
+  </Grid>
+</UserControl>

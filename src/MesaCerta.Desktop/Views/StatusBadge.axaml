@@ -1,0 +1,10 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="MesaCerta.Desktop.Views.StatusBadge">
+  <Border x:Name="Badge" Classes="badge">
+    <StackPanel Orientation="Horizontal" Spacing="6">
+      <Ellipse Width="5" Height="5" Fill="{Binding #Label.Foreground}" VerticalAlignment="Center" />
+      <TextBlock x:Name="Label" />
+    </StackPanel>
+  </Border>
+</UserControl>

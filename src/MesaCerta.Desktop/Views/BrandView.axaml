@@ -1,0 +1,11 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MesaCerta.Desktop.ViewModels"
+             x:Class="MesaCerta.Desktop.Views.BrandView">
+  <StackPanel Orientation="Horizontal" Spacing="9" VerticalAlignment="Center">
+    <Border Width="34" Height="34" CornerRadius="8" Background="{StaticResource Blue}">
+      <Path Classes="icon" Data="{x:Static vm:Icons.Utensils}" Stroke="White" Width="20" Height="20" HorizontalAlignment="Center" />
+    </Border>
+    <TextBlock Text="MesaCerta" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" LetterSpacing="-0.6" />
+  </StackPanel>
+</UserControl>

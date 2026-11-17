@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MesaCerta.Desktop.ViewModels"
+             x:Class="MesaCerta.Desktop.Views.EditItemDialogView"
+             x:DataType="vm:EditItemDialogViewModel">
+  <StackPanel Spacing="14">
+    <TextBlock Text="{Binding ProductName}" FontWeight="SemiBold" />
+    <StackPanel IsVisible="{Binding IsWeighted}">
+      <TextBlock Classes="label" Text="Quantidade (kg)" />
+      <TextBox Text="{Binding Weight}" AutomationProperties.Name="Quantidade (kg)" />
+    </StackPanel>
+    <StackPanel IsVisible="{Binding IsUnit}">
+      <TextBlock Classes="label" Text="Quantidade" />
+      <TextBox Text="{Binding Quantity}" AutomationProperties.Name="Quantidade" />
+    </StackPanel>
+    <StackPanel>
+      <TextBlock Classes="label" Text="Observação" />
+      <TextBox Text="{Binding Note}" MaxLength="240" AutomationProperties.Name="Observação" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>

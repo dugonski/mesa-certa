@@ -1,0 +1,330 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Styles.Resources>
+    <SolidColorBrush x:Key="Blue" Color="#2864D9" />
+    <SolidColorBrush x:Key="BlueDark" Color="#194FBC" />
+    <SolidColorBrush x:Key="Ink" Color="#243044" />
+    <SolidColorBrush x:Key="Muted" Color="#687589" />
+    <SolidColorBrush x:Key="Line" Color="#DCE2EA" />
+    <SolidColorBrush x:Key="InputLine" Color="#CBD4E1" />
+    <SolidColorBrush x:Key="Page" Color="#F4F6F9" />
+    <FontFamily x:Key="AppFont">Segoe UI, Inter, Arial</FontFamily>
+  </Styles.Resources>
+
+  <Style Selector="Window">
+    <Setter Property="FontFamily" Value="{StaticResource AppFont}" />
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="Foreground" Value="{StaticResource Ink}" />
+    <Setter Property="Background" Value="{StaticResource Page}" />
+  </Style>
+
+  <!-- Textos -->
+  <Style Selector="TextBlock.h1">
+    <Setter Property="FontSize" Value="24" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+  <Style Selector="TextBlock.h2">
+    <Setter Property="FontSize" Value="18" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+  <Style Selector="TextBlock.muted">
+    <Setter Property="Foreground" Value="{StaticResource Muted}" />
+    <Setter Property="FontSize" Value="12" />
+  </Style>
+  <Style Selector="TextBlock.label">
+    <Setter Property="FontSize" Value="13" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Foreground" Value="#45546A" />
+    <Setter Property="Margin" Value="0,0,0,6" />
+  </Style>
+  <Style Selector="TextBlock.empty">
+    <Setter Property="Foreground" Value="#7B8899" />
+    <Setter Property="HorizontalAlignment" Value="Center" />
+    <Setter Property="Margin" Value="20,38" />
+  </Style>
+  <Style Selector="TextBlock.error">
+    <Setter Property="Foreground" Value="#AD3B3B" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+  </Style>
+
+  <!-- Campos -->
+  <Style Selector="TextBox">
+    <Setter Property="MinHeight" Value="42" />
+    <Setter Property="CornerRadius" Value="6" />
+    <Setter Property="BorderBrush" Value="{StaticResource InputLine}" />
+    <Setter Property="Background" Value="White" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+  </Style>
+  <Style Selector="ComboBox">
+    <Setter Property="MinHeight" Value="42" />
+    <Setter Property="CornerRadius" Value="6" />
+    <Setter Property="BorderBrush" Value="{StaticResource InputLine}" />
+    <Setter Property="Background" Value="White" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+  </Style>
+  <Style Selector="ComboBox">
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+  </Style>
+  <Style Selector="TextBox.search">
+    <Setter Property="MinWidth" Value="210" />
+  </Style>
+
+  <!-- Painéis -->
+  <Style Selector="Border.panel">
+    <Setter Property="Background" Value="White" />
+    <Setter Property="BorderBrush" Value="{StaticResource Line}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="8" />
+    <Setter Property="ClipToBounds" Value="True" />
+  </Style>
+  <Style Selector="Border.alert">
+    <Setter Property="Background" Value="#FFF3F3" />
+    <Setter Property="BorderBrush" Value="#EFC7C7" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="6" />
+    <Setter Property="Padding" Value="12,8" />
+  </Style>
+  <Style Selector="Border.toast">
+    <Setter Property="Background" Value="#263C32" />
+    <Setter Property="CornerRadius" Value="7" />
+    <Setter Property="Padding" Value="20,12" />
+    <Setter Property="BoxShadow" Value="0 4 20 0 #22000000" />
+  </Style>
+  <Style Selector="Border.toast TextBlock">
+    <Setter Property="Foreground" Value="White" />
+    <Setter Property="FontSize" Value="13" />
+  </Style>
+  <Style Selector="Border.notice">
+    <Setter Property="Background" Value="#FFF7DF" />
+    <Setter Property="CornerRadius" Value="6" />
+    <Setter Property="Padding" Value="10" />
+  </Style>
+  <Style Selector="Border.notice TextBlock">
+    <Setter Property="Foreground" Value="#876819" />
+    <Setter Property="FontSize" Value="12" />
+  </Style>
+  <Style Selector="Border.confirm">
+    <Setter Property="Background" Value="#F5F8FC" />
+    <Setter Property="CornerRadius" Value="8" />
+    <Setter Property="Padding" Value="18" />
+  </Style>
+
+  <!-- Selos de estado -->
+  <Style Selector="Border.badge">
+    <Setter Property="Background" Value="#EEF1F6" />
+    <Setter Property="CornerRadius" Value="5" />
+    <Setter Property="Padding" Value="9,5" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+  </Style>
+  <Style Selector="Border.badge TextBlock">
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="Foreground" Value="#687589" />
+  </Style>
+  <Style Selector="Border.badge.open">
+    <Setter Property="Background" Value="#EAF1FF" />
+  </Style>
+  <Style Selector="Border.badge.open TextBlock">
+    <Setter Property="Foreground" Value="#356BBD" />
+  </Style>
+  <Style Selector="Border.badge.paid">
+    <Setter Property="Background" Value="#FFF5DE" />
+  </Style>
+  <Style Selector="Border.badge.paid TextBlock">
+    <Setter Property="Foreground" Value="#967020" />
+  </Style>
+
+  <!-- Botões -->
+  <Style Selector="Button">
+    <Setter Property="CornerRadius" Value="6" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Cursor" Value="Hand" />
+  </Style>
+  <Style Selector="Button.primary, Button.secondary">
+    <Setter Property="MinHeight" Value="46" />
+    <Setter Property="Padding" Value="18,11" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Button.primary">
+    <Setter Property="Background" Value="{StaticResource Blue}" />
+    <Setter Property="Foreground" Value="White" />
+  </Style>
+  <Style Selector="Button.primary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{StaticResource BlueDark}" />
+    <Setter Property="Foreground" Value="White" />
+  </Style>
+  <Style Selector="Button.primary:pressed /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{StaticResource BlueDark}" />
+    <Setter Property="Foreground" Value="White" />
+  </Style>
+  <Style Selector="Button.primary:disabled /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#9DB6E8" />
+    <Setter Property="Foreground" Value="White" />
+  </Style>
+  <Style Selector="Button.secondary">
+    <Setter Property="Background" Value="White" />
+    <Setter Property="Foreground" Value="#45546A" />
+    <Setter Property="BorderBrush" Value="{StaticResource InputLine}" />
+    <Setter Property="BorderThickness" Value="1" />
+  </Style>
+  <Style Selector="Button.secondary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#EEF3FA" />
+    <Setter Property="BorderBrush" Value="{StaticResource InputLine}" />
+    <Setter Property="Foreground" Value="#45546A" />
+  </Style>
+  <Style Selector="Button.full">
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+  </Style>
+  <Style Selector="Button.icon">
+    <Setter Property="Width" Value="40" />
+    <Setter Property="Height" Value="40" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Button.link">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{StaticResource Blue}" />
+    <Setter Property="Padding" Value="4,2" />
+  </Style>
+  <Style Selector="Button.itemAction">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="#476689" />
+    <Setter Property="Padding" Value="0,3" />
+    <Setter Property="MinHeight" Value="32" />
+    <Setter Property="FontSize" Value="12" />
+  </Style>
+  <Style Selector="Button.itemAction.danger">
+    <Setter Property="Foreground" Value="#AD5151" />
+  </Style>
+
+  <!-- Navegação superior -->
+  <Style Selector="Button.nav">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="#657286" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="Padding" Value="16,0" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="BorderThickness" Value="0,0,0,3" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+  </Style>
+  <Style Selector="Button.nav.active">
+    <Setter Property="Foreground" Value="{StaticResource Blue}" />
+    <Setter Property="Background" Value="#F6F9FF" />
+    <Setter Property="BorderBrush" Value="{StaticResource Blue}" />
+  </Style>
+  <Style Selector="Button.nav:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#F4F7FB" />
+  </Style>
+
+  <!-- Filtros e categorias -->
+  <Style Selector="Button.chip">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="#657286" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="Padding" Value="13,10" />
+    <Setter Property="Margin" Value="0,0,6,6" />
+  </Style>
+  <Style Selector="Button.chip.selected">
+    <Setter Property="Background" Value="#E6EEFC" />
+    <Setter Property="BorderBrush" Value="#C9DAF9" />
+    <Setter Property="Foreground" Value="#225AC5" />
+  </Style>
+
+  <!-- Mapa de mesas -->
+  <Style Selector="Button.tile">
+    <Setter Property="MinHeight" Value="123" />
+    <Setter Property="Padding" Value="14,12" />
+    <Setter Property="Margin" Value="0,0,12,12" />
+    <Setter Property="CornerRadius" Value="7" />
+    <Setter Property="BorderThickness" Value="4,1,1,1" />
+    <Setter Property="BorderBrush" Value="#70A887" />
+    <Setter Property="Background" Value="#FDFEFD" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Top" />
+    <Setter Property="Foreground" Value="{StaticResource Ink}" />
+    <Setter Property="FontWeight" Value="Normal" />
+  </Style>
+  <Style Selector="Button.tile TextBlock.status">
+    <Setter Property="Foreground" Value="#4B7F5F" />
+  </Style>
+  <Style Selector="Button.tile.open">
+    <Setter Property="BorderBrush" Value="#4780DC" />
+    <Setter Property="Background" Value="#F2F6FE" />
+  </Style>
+  <Style Selector="Button.tile.open TextBlock.status">
+    <Setter Property="Foreground" Value="#3068BD" />
+  </Style>
+  <Style Selector="Button.tile.paid">
+    <Setter Property="BorderBrush" Value="#C69B42" />
+    <Setter Property="Background" Value="#FFFBF1" />
+  </Style>
+  <Style Selector="Button.tile.paid TextBlock.status">
+    <Setter Property="Foreground" Value="#977020" />
+  </Style>
+  <Style Selector="Button.tile:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#EEF5FF" />
+    <Setter Property="BorderBrush" Value="#6897E9" />
+  </Style>
+  <Style Selector="Button.tile:disabled /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#FDFEFD" />
+    <Setter Property="BorderBrush" Value="#70A887" />
+    <Setter Property="Foreground" Value="#68736E" />
+  </Style>
+
+  <!-- Cartões de produto e de fichas -->
+  <Style Selector="Button.card">
+    <Setter Property="Background" Value="White" />
+    <Setter Property="BorderBrush" Value="{StaticResource Line}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="17" />
+    <Setter Property="Margin" Value="0,0,12,12" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Top" />
+    <Setter Property="FontWeight" Value="Normal" />
+    <Setter Property="Foreground" Value="{StaticResource Ink}" />
+  </Style>
+  <Style Selector="Button.card.selected">
+    <Setter Property="BorderBrush" Value="{StaticResource Blue}" />
+    <Setter Property="Background" Value="#EAF1FF" />
+  </Style>
+  <Style Selector="Button.card:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#F6F9FF" />
+    <Setter Property="BorderBrush" Value="#6897E9" />
+  </Style>
+
+  <!-- Tabelas simples -->
+  <Style Selector="Grid.thead TextBlock">
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Foreground" Value="{StaticResource Muted}" />
+  </Style>
+  <Style Selector="Border.row">
+    <Setter Property="BorderBrush" Value="#EEF1F6" />
+    <Setter Property="BorderThickness" Value="0,1,0,0" />
+    <Setter Property="Padding" Value="16,12" />
+  </Style>
+  <Style Selector="Border.headrow">
+    <Setter Property="Background" Value="#F7F9FC" />
+    <Setter Property="Padding" Value="16,10" />
+  </Style>
+
+  <!-- Ícones desenhados por traço -->
+  <Style Selector="Path.icon">
+    <Setter Property="Stroke" Value="{Binding $parent[ContentPresenter].Foreground}" />
+    <Setter Property="StrokeThickness" Value="2" />
+    <Setter Property="StrokeLineCap" Value="Round" />
+    <Setter Property="StrokeJoin" Value="Round" />
+    <Setter Property="Width" Value="18" />
+    <Setter Property="Height" Value="18" />
+    <Setter Property="Stretch" Value="Uniform" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+</Styles>

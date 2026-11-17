@@ -1,0 +1,11 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MesaCerta.Desktop.ViewModels"
+             x:Class="MesaCerta.Desktop.Views.RemoveItemDialogView"
+             x:DataType="vm:RemoveItemDialogViewModel">
+  <TextBlock TextWrapping="Wrap">
+    <Run Text="Remover " />
+    <Run Text="{Binding ProductName}" FontWeight="SemiBold" />
+    <Run Text=" deste pedido?" />
+  </TextBlock>
+</UserControl>

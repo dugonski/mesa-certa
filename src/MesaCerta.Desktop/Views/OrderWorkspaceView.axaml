@@ -1,0 +1,151 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MesaCerta.Desktop.ViewModels"
+             xmlns:views="using:MesaCerta.Desktop.Views"
+             x:Class="MesaCerta.Desktop.Views.OrderWorkspaceView"
+             x:DataType="vm:OrderWorkspaceViewModel">
+  <Grid x:Name="Layout" ColumnDefinitions="1.05*,18,*">
+    <!-- Catálogo -->
+    <Border Classes="panel" IsVisible="{Binding CanAdd}" VerticalAlignment="Top" AutomationProperties.Name="Produtos disponíveis">
+      <StackPanel>
+        <StackPanel Margin="16,16,16,0" Spacing="12">
+          <TextBox Watermark="Buscar bebida ou buffet" Text="{Binding Search}" AutomationProperties.Name="Buscar produto" />
+          <ItemsControl ItemsSource="{Binding Categories}">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <WrapPanel />
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate x:DataType="vm:ChipViewModel">
+                <Button Classes="chip" Classes.selected="{Binding IsSelected}" Content="{Binding Label}" Command="{Binding Command}" />
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+        <ItemsControl ItemsSource="{Binding Cards}" Margin="16,4,4,4">
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <UniformGrid Columns="3" />
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+          <ItemsControl.ItemTemplate>
+            <DataTemplate x:DataType="vm:ProductCardViewModel">
+              <Button Classes="card" Classes.selected="{Binding IsSelected}" Command="{Binding Command}" IsEnabled="{Binding Enabled}" MinHeight="84">
+                <StackPanel Spacing="8">
+                  <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextWrapping="Wrap" />
+                  <TextBlock>
+                    <Run Text="{Binding Price}" FontWeight="SemiBold" />
+                    <Run Text="{Binding Unit}" FontSize="12" Foreground="#697990" />
+                  </TextBlock>
+                </StackPanel>
+              </Button>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <TextBlock Classes="empty" Text="Nenhum produto disponível." IsVisible="{Binding ProductsEmpty}" />
+
+        <!-- Composição do item -->
+        <Border BorderBrush="{StaticResource Line}" BorderThickness="0,1,0,0" Background="#F9FBFE" Padding="16,14" IsVisible="{Binding HasProduct}">
+          <StackPanel Spacing="12">
+            <TextBlock Text="{Binding Product.Name, FallbackValue=''}" FontWeight="SemiBold" />
+            <Border Classes="notice" IsVisible="{Binding NeedsPrice}">
+              <DockPanel>
+                <Button DockPanel.Dock="Right" Classes="secondary" Content="Definir preço" MinHeight="36" Padding="10,8" FontSize="12"
+                        IsVisible="{Binding CanConfigure}" Command="{Binding ConfigureCommand}" />
+                <StackPanel VerticalAlignment="Center">
+                  <TextBlock Text="Defina o preço por kg para lançar este buffet." />
+                  <TextBlock Text="Solicite a configuração ao administrador." IsVisible="{Binding CannotConfigure}" />
+                </StackPanel>
+              </DockPanel>
+            </Border>
+            <Grid ColumnDefinitions="*,10,*">
+              <StackPanel IsVisible="{Binding IsWeighted}">
+                <TextBlock Classes="label" Text="Quantidade (kg)" FontSize="12" />
+                <TextBox Text="{Binding Weight}" Watermark="Ex.: 0,350" IsEnabled="{Binding InputsEnabled}" AutomationProperties.Name="Quantidade (kg)" />
+              </StackPanel>
+              <StackPanel IsVisible="{Binding IsUnit}">
+                <TextBlock Classes="label" Text="Quantidade" FontSize="12" />
+                <TextBox Text="{Binding Quantity}" IsEnabled="{Binding InputsEnabled}" AutomationProperties.Name="Quantidade" />
+              </StackPanel>
+              <StackPanel Grid.Column="2">
+                <TextBlock Classes="label" Text="Observação" FontSize="12" />
+                <TextBox Text="{Binding Note}" Watermark="Opcional" MaxLength="240" IsEnabled="{Binding InputsEnabled}" AutomationProperties.Name="Observação" />
+              </StackPanel>
+            </Grid>
+            <DockPanel>
+              <Button DockPanel.Dock="Right" Classes="primary" Command="{Binding AddCommand}" IsEnabled="{Binding CanSubmit}" IsDefault="True">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                  <Path Classes="icon" Data="{x:Static vm:Icons.Plus}" Stroke="White" />
+                  <TextBlock Text="Adicionar" />
+                </StackPanel>
+              </Button>
+              <TextBlock Text="{Binding PreviewText}" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center" />
+            </DockPanel>
+          </StackPanel>
+        </Border>
+        <Border BorderBrush="{StaticResource Line}" BorderThickness="0,1,0,0" Padding="18" IsVisible="{Binding !HasProduct}">
+          <TextBlock Text="Selecione uma bebida ou um tipo de buffet." Foreground="#718198" FontSize="13" />
+        </Border>
+      </StackPanel>
+    </Border>
+
+    <!-- Pedido -->
+    <Border x:Name="OrderPanel" Grid.Column="2" Classes="panel" VerticalAlignment="Top" MinWidth="380" AutomationProperties.Name="Pedido">
+      <StackPanel>
+        <DockPanel Margin="20,18">
+          <views:StatusBadge DockPanel.Dock="Right" Status="{Binding Status}" />
+          <TextBlock Classes="h2" Text="Pedido" />
+        </DockPanel>
+        <Border Classes="headrow" IsVisible="{Binding HasLines}">
+          <Grid Classes="thead" ColumnDefinitions="90,*,110">
+            <TextBlock Text="Qtd./kg" />
+            <TextBlock Grid.Column="1" Text="Produto" />
+            <TextBlock Grid.Column="2" Text="Total" HorizontalAlignment="Right" />
+          </Grid>
+        </Border>
+        <ItemsControl ItemsSource="{Binding Lines}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate x:DataType="vm:OrderLineViewModel">
+              <Border Classes="row">
+                <Grid ColumnDefinitions="90,*,110">
+                  <TextBlock Text="{Binding Quantity}" />
+                  <StackPanel Grid.Column="1" Spacing="3">
+                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextWrapping="Wrap" />
+                    <TextBlock Text="{Binding PricePerKg}" Classes="muted" IsVisible="{Binding HasPricePerKg}" />
+                    <TextBlock Text="{Binding Note}" Classes="muted" IsVisible="{Binding HasNote}" TextWrapping="Wrap" />
+                    <StackPanel Orientation="Horizontal" Spacing="14" Margin="0,7,0,0" IsVisible="{Binding CanEdit}">
+                      <Button Classes="itemAction" Command="{Binding EditCommand}" IsEnabled="{Binding Enabled}">
+                        <StackPanel Orientation="Horizontal" Spacing="5">
+                          <Path Classes="icon" Data="{x:Static vm:Icons.Pencil}" Stroke="#476689" Width="14" Height="14" />
+                          <TextBlock Text="Editar" />
+                        </StackPanel>
+                      </Button>
+                      <Button Classes="itemAction danger" Command="{Binding RemoveCommand}" IsEnabled="{Binding Enabled}">
+                        <StackPanel Orientation="Horizontal" Spacing="5">
+                          <Path Classes="icon" Data="{x:Static vm:Icons.Trash}" Stroke="#AD5151" Width="14" Height="14" />
+                          <TextBlock Text="Remover" />
+                        </StackPanel>
+                      </Button>
+                    </StackPanel>
+                  </StackPanel>
+                  <TextBlock Grid.Column="2" Text="{Binding Total}" HorizontalAlignment="Right" />
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <TextBlock Classes="empty" Text="Nenhum item lançado." IsVisible="{Binding LinesEmpty}" />
+        <Border BorderBrush="{StaticResource Line}" BorderThickness="0,1,0,0" Padding="20,16">
+          <StackPanel Spacing="14">
+            <DockPanel>
+              <TextBlock DockPanel.Dock="Right" Text="{Binding TotalText}" FontSize="22" FontWeight="SemiBold" />
+              <TextBlock Text="Total do pedido" VerticalAlignment="Center" Foreground="{StaticResource Muted}" />
+            </DockPanel>
+            <Button Classes="secondary full" Content="Ir ao caixa" IsVisible="{Binding CanPay}" Command="{Binding GoCashierCommand}" IsEnabled="{Binding !Busy}" />
+          </StackPanel>
+        </Border>
+      </StackPanel>
+    </Border>
+  </Grid>
+</UserControl>

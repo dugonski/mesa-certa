@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MesaCerta.Desktop.ViewModels"
+             x:Class="MesaCerta.Desktop.Views.AuditPageView"
+             x:DataType="vm:AuditPageViewModel">
+  <Border Classes="panel">
+    <StackPanel>
+      <Border Classes="headrow">
+        <Grid Classes="thead" ColumnDefinitions="2*,*,*,*">
+          <TextBlock Text="Atividade" />
+          <TextBlock Grid.Column="1" Text="Usuário" />
+          <TextBlock Grid.Column="2" Text="Terminal" />
+          <TextBlock Grid.Column="3" Text="Data e hora" />
+        </Grid>
+      </Border>
+      <ItemsControl ItemsSource="{Binding Rows}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="vm:AuditRowViewModel">
+            <Border Classes="row">
+              <Grid ColumnDefinitions="2*,*,*,*">
+                <StackPanel Spacing="3">
+                  <TextBlock Text="{Binding Action}" FontWeight="SemiBold" />
+                  <TextBlock Text="{Binding Detail}" Classes="muted" TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+                <TextBlock Grid.Column="1" Text="{Binding UserName}" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="2" Text="{Binding Terminal}" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="3" Text="{Binding Date}" VerticalAlignment="Center" />
+              </Grid>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </StackPanel>
+  </Border>
+</UserControl>
