@@ -3,11 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CE584F5F-3B11-46E2-A57C-9DBCE4985248}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B9AD8A7A-738E-4971-99C3-3053F2270F83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MesaCerta.Shared", "src\MesaCerta.Shared\MesaCerta.Shared.csproj", "{E41B96DA-DA92-4643-BFB3-BB595A758F0E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MesaCerta.Shared", "src\MesaCerta.Shared\MesaCerta.Shared.csproj", "{6D999970-05CB-4E85-A0A2-1164DB23EAB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MesaCerta.Server", "src\MesaCerta.Server\MesaCerta.Server.csproj", "{5FD5E904-2429-489F-977A-FA8B3ADAA64D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MesaCerta.Server", "src\MesaCerta.Server\MesaCerta.Server.csproj", "{80E3E92A-64AB-4598-8C83-190C98982996}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{2CE04286-D840-44BF-A0B1-6A9B9CC59063}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MesaCerta.Tests", "tests\MesaCerta.Tests\MesaCerta.Tests.csproj", "{74013BAC-B51E-4CD7-BC32-B3870C77947A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MesaCerta.IntegrationTests", "tests\MesaCerta.IntegrationTests\MesaCerta.IntegrationTests.csproj", "{78BC9B6F-E55E-4C05-BD74-8D6279D46A2D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,17 +24,27 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E41B96DA-DA92-4643-BFB3-BB595A758F0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E41B96DA-DA92-4643-BFB3-BB595A758F0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E41B96DA-DA92-4643-BFB3-BB595A758F0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E41B96DA-DA92-4643-BFB3-BB595A758F0E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5FD5E904-2429-489F-977A-FA8B3ADAA64D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5FD5E904-2429-489F-977A-FA8B3ADAA64D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5FD5E904-2429-489F-977A-FA8B3ADAA64D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5FD5E904-2429-489F-977A-FA8B3ADAA64D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D999970-05CB-4E85-A0A2-1164DB23EAB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D999970-05CB-4E85-A0A2-1164DB23EAB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D999970-05CB-4E85-A0A2-1164DB23EAB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D999970-05CB-4E85-A0A2-1164DB23EAB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80E3E92A-64AB-4598-8C83-190C98982996}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80E3E92A-64AB-4598-8C83-190C98982996}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80E3E92A-64AB-4598-8C83-190C98982996}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80E3E92A-64AB-4598-8C83-190C98982996}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74013BAC-B51E-4CD7-BC32-B3870C77947A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74013BAC-B51E-4CD7-BC32-B3870C77947A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74013BAC-B51E-4CD7-BC32-B3870C77947A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74013BAC-B51E-4CD7-BC32-B3870C77947A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78BC9B6F-E55E-4C05-BD74-8D6279D46A2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78BC9B6F-E55E-4C05-BD74-8D6279D46A2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78BC9B6F-E55E-4C05-BD74-8D6279D46A2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78BC9B6F-E55E-4C05-BD74-8D6279D46A2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{E41B96DA-DA92-4643-BFB3-BB595A758F0E} = {CE584F5F-3B11-46E2-A57C-9DBCE4985248}
-		{5FD5E904-2429-489F-977A-FA8B3ADAA64D} = {CE584F5F-3B11-46E2-A57C-9DBCE4985248}
+		{6D999970-05CB-4E85-A0A2-1164DB23EAB0} = {B9AD8A7A-738E-4971-99C3-3053F2270F83}
+		{80E3E92A-64AB-4598-8C83-190C98982996} = {B9AD8A7A-738E-4971-99C3-3053F2270F83}
+		{74013BAC-B51E-4CD7-BC32-B3870C77947A} = {2CE04286-D840-44BF-A0B1-6A9B9CC59063}
+		{78BC9B6F-E55E-4C05-BD74-8D6279D46A2D} = {2CE04286-D840-44BF-A0B1-6A9B9CC59063}
 	EndGlobalSection
 EndGlobal
