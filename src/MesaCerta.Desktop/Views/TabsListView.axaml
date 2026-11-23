@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MesaCerta.Desktop.ViewModels"
+             x:Class="MesaCerta.Desktop.Views.TabsListView"
+             x:DataType="vm:TabsListViewModel">
+  <Border Classes="panel" Padding="18,18,6,6">
+    <StackPanel>
+      <DockPanel Margin="0,0,12,18">
+        <TextBlock DockPanel.Dock="Right" Text="{Binding CountText}" Classes="muted" VerticalAlignment="Center" />
+        <TextBox Classes="search" HorizontalAlignment="Left" Width="280" Watermark="Buscar mesa ou ficha"
+                 Text="{Binding Search}" AutomationProperties.Name="Buscar ficha" />
+      </DockPanel>
+      <ItemsControl ItemsSource="{Binding Cards}">
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <WrapPanel ItemWidth="230" />
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="vm:CardViewModel">
+            <Button Classes="card" Command="{Binding Command}">
+              <StackPanel Spacing="10">
+                <TextBlock Text="{Binding Title}" FontSize="16" FontWeight="SemiBold" />
+                <TextBlock Text="{Binding Subtitle}" Classes="muted" TextWrapping="Wrap" />
+                <TextBlock Text="{Binding Amount}" FontSize="19" FontWeight="SemiBold" IsVisible="{Binding HasAmount}" />
+              </StackPanel>
+            </Button>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+      <TextBlock Classes="empty" Text="Nenhuma ficha encontrada." IsVisible="{Binding IsEmpty}" />
+    </StackPanel>
+  </Border>
+</UserControl>

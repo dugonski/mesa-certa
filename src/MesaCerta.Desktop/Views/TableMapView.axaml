@@ -1,0 +1,75 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MesaCerta.Desktop.ViewModels"
+             x:Class="MesaCerta.Desktop.Views.TableMapView"
+             x:DataType="vm:TableMapViewModel">
+  <StackPanel>
+    <DockPanel Margin="0,0,0,12">
+      <TextBox DockPanel.Dock="Right" Classes="search" Width="210" VerticalAlignment="Top"
+               Watermark="Número da mesa" Text="{Binding Search}" AutomationProperties.Name="Buscar mesa" />
+      <ItemsControl ItemsSource="{Binding Chips}">
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <WrapPanel />
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="vm:ChipViewModel">
+            <Button Classes="chip" Classes.selected="{Binding IsSelected}" Command="{Binding Command}">
+              <StackPanel Orientation="Horizontal" Spacing="9">
+                <TextBlock Text="{Binding Label}" />
+                <TextBlock Text="{Binding Count}" FontSize="12" Opacity="0.8" VerticalAlignment="Center" />
+              </StackPanel>
+            </Button>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </DockPanel>
+
+    <ItemsControl ItemsSource="{Binding Tiles}" Margin="0,0,-12,0">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <UniformGrid Columns="6" />
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate x:DataType="vm:TableTileViewModel">
+          <Button Classes="tile" Classes.open="{Binding IsOpen}" Classes.paid="{Binding IsPaid}" Classes.free="{Binding IsFree}"
+                  Command="{Binding Command}" IsEnabled="{Binding Enabled}" AutomationProperties.Name="{Binding AccessibleName}">
+            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto">
+              <TextBlock Text="Mesa" FontSize="11" Foreground="#708078" />
+              <TextBlock Grid.Row="1" Text="{Binding Number}" FontSize="28" FontWeight="SemiBold" />
+              <StackPanel Grid.Column="1" Grid.RowSpan="2" Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
+                <Ellipse Width="6" Height="6" Fill="{Binding #StatusText.Foreground}" />
+                <TextBlock x:Name="StatusText" Classes="status" Text="{Binding StatusLabel}" FontSize="12" />
+              </StackPanel>
+              <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding Amount}" IsVisible="{Binding HasAmount}" FontWeight="SemiBold" Margin="0,8,0,0" />
+            </Grid>
+          </Button>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+    <TextBlock Classes="empty" Text="Nenhuma mesa encontrada." IsVisible="{Binding IsEmpty}" />
+
+    <StackPanel Margin="0,25,0,0" IsVisible="{Binding HasPrevious}">
+      <TextBlock Text="Fichas anteriores" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12" />
+      <ItemsControl ItemsSource="{Binding Previous}" Margin="0,0,-12,0">
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <WrapPanel ItemWidth="230" />
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="vm:CardViewModel">
+            <Button Classes="card" Command="{Binding Command}">
+              <StackPanel Spacing="10">
+                <TextBlock Text="{Binding Title}" FontSize="16" FontWeight="SemiBold" />
+                <TextBlock Text="{Binding Subtitle}" Classes="muted" />
+              </StackPanel>
+            </Button>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </StackPanel>
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,47 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MesaCerta.Desktop.ViewModels"
+             xmlns:views="using:MesaCerta.Desktop.Views"
+             x:Class="MesaCerta.Desktop.Views.LoginView"
+             x:DataType="vm:LoginViewModel">
+  <Grid Background="{StaticResource Page}">
+    <Border Classes="panel" Width="420" Padding="32" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <StackPanel Spacing="18">
+        <views:BrandView HorizontalAlignment="Left" />
+        <TextBlock Classes="h1" Text="Entrar" />
+        <StackPanel>
+          <TextBlock Classes="label" Text="Usuário" />
+          <TextBox x:Name="UsernameBox" Text="{Binding Username}" AutomationProperties.Name="Usuário" />
+        </StackPanel>
+        <StackPanel>
+          <TextBlock Classes="label" Text="Senha" />
+          <TextBox Text="{Binding Password}" PasswordChar="•" AutomationProperties.Name="Senha" />
+        </StackPanel>
+        <StackPanel>
+          <TextBlock Classes="label" Text="Identificação do terminal" />
+          <TextBox Text="{Binding Terminal}" Watermark="Ex.: Caixa 01" MaxLength="80" AutomationProperties.Name="Identificação do terminal" />
+        </StackPanel>
+        <Button Classes="link" Command="{Binding ToggleConnectionCommand}" HorizontalAlignment="Left" Foreground="#45546A">
+          <StackPanel Orientation="Horizontal" Spacing="6">
+            <TextBlock Text="Servidor" />
+            <Path Classes="icon" Data="{x:Static vm:Icons.ChevronDown}" Stroke="#45546A" Width="14" Height="14" />
+          </StackPanel>
+        </Button>
+        <Grid ColumnDefinitions="*,12,120" IsVisible="{Binding ShowConnection}">
+          <StackPanel>
+            <TextBlock Classes="label" Text="Endereço" />
+            <TextBox Text="{Binding Host}" AutomationProperties.Name="Endereço" />
+          </StackPanel>
+          <StackPanel Grid.Column="2">
+            <TextBlock Classes="label" Text="Porta" />
+            <TextBox Text="{Binding Port}" AutomationProperties.Name="Porta" />
+          </StackPanel>
+        </Grid>
+        <Border Classes="alert" IsVisible="{Binding HasError}">
+          <TextBlock Classes="error" Text="{Binding Error}" />
+        </Border>
+        <Button Classes="primary full" Content="{Binding SubmitLabel}" Command="{Binding SubmitCommand}" IsEnabled="{Binding !Busy}" IsDefault="True" />
+      </StackPanel>
+    </Border>
+  </Grid>
+</UserControl>

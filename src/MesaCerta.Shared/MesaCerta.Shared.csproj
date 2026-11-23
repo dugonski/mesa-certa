@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>MesaCerta.Shared</RootNamespace>
+  </PropertyGroup>
+</Project>

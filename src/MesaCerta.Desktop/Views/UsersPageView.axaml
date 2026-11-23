@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MesaCerta.Desktop.ViewModels"
+             x:Class="MesaCerta.Desktop.Views.UsersPageView"
+             x:DataType="vm:UsersPageViewModel">
+  <Border Classes="panel">
+    <StackPanel>
+      <Border Classes="headrow">
+        <Grid Classes="thead" ColumnDefinitions="2*,*,*,*">
+          <TextBlock Text="Nome" />
+          <TextBlock Grid.Column="1" Text="Usuário" />
+          <TextBlock Grid.Column="2" Text="Perfil" />
+          <TextBlock Grid.Column="3" Text="Status" />
+        </Grid>
+      </Border>
+      <ItemsControl ItemsSource="{Binding Rows}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="vm:UserRowViewModel">
+            <Border Classes="row">
+              <Grid ColumnDefinitions="2*,*,*,*">
+                <TextBlock Text="{Binding Name}" FontWeight="SemiBold" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="1" Text="{Binding Username}" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="2" Text="{Binding Role}" VerticalAlignment="Center" />
+                <Border Grid.Column="3" Classes="badge paid">
+                  <TextBlock Text="{Binding Status}" />
+                </Border>
+              </Grid>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </StackPanel>
+  </Border>
+</UserControl>

@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B9AD8A7A-738E-4971-99C3-3053F2270F83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MesaCerta.Shared", "src\MesaCerta.Shared\MesaCerta.Shared.csproj", "{6D999970-05CB-4E85-A0A2-1164DB23EAB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MesaCerta.Server", "src\MesaCerta.Server\MesaCerta.Server.csproj", "{80E3E92A-64AB-4598-8C83-190C98982996}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{2CE04286-D840-44BF-A0B1-6A9B9CC59063}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MesaCerta.Tests", "tests\MesaCerta.Tests\MesaCerta.Tests.csproj", "{74013BAC-B51E-4CD7-BC32-B3870C77947A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MesaCerta.IntegrationTests", "tests\MesaCerta.IntegrationTests\MesaCerta.IntegrationTests.csproj", "{78BC9B6F-E55E-4C05-BD74-8D6279D46A2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MesaCerta.Desktop", "src\MesaCerta.Desktop\MesaCerta.Desktop.csproj", "{384BEFEC-978C-410E-8B3F-E526F3CF29BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MesaCerta.UiTests", "tests\MesaCerta.UiTests\MesaCerta.UiTests.csproj", "{EC560D20-DB99-46A0-8DAA-1C6F910F79A7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6D999970-05CB-4E85-A0A2-1164DB23EAB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D999970-05CB-4E85-A0A2-1164DB23EAB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D999970-05CB-4E85-A0A2-1164DB23EAB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D999970-05CB-4E85-A0A2-1164DB23EAB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80E3E92A-64AB-4598-8C83-190C98982996}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80E3E92A-64AB-4598-8C83-190C98982996}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80E3E92A-64AB-4598-8C83-190C98982996}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80E3E92A-64AB-4598-8C83-190C98982996}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74013BAC-B51E-4CD7-BC32-B3870C77947A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74013BAC-B51E-4CD7-BC32-B3870C77947A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74013BAC-B51E-4CD7-BC32-B3870C77947A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74013BAC-B51E-4CD7-BC32-B3870C77947A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78BC9B6F-E55E-4C05-BD74-8D6279D46A2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78BC9B6F-E55E-4C05-BD74-8D6279D46A2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78BC9B6F-E55E-4C05-BD74-8D6279D46A2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78BC9B6F-E55E-4C05-BD74-8D6279D46A2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{384BEFEC-978C-410E-8B3F-E526F3CF29BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{384BEFEC-978C-410E-8B3F-E526F3CF29BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{384BEFEC-978C-410E-8B3F-E526F3CF29BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{384BEFEC-978C-410E-8B3F-E526F3CF29BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC560D20-DB99-46A0-8DAA-1C6F910F79A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC560D20-DB99-46A0-8DAA-1C6F910F79A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC560D20-DB99-46A0-8DAA-1C6F910F79A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC560D20-DB99-46A0-8DAA-1C6F910F79A7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6D999970-05CB-4E85-A0A2-1164DB23EAB0} = {B9AD8A7A-738E-4971-99C3-3053F2270F83}
+		{80E3E92A-64AB-4598-8C83-190C98982996} = {B9AD8A7A-738E-4971-99C3-3053F2270F83}
+		{74013BAC-B51E-4CD7-BC32-B3870C77947A} = {2CE04286-D840-44BF-A0B1-6A9B9CC59063}
+		{78BC9B6F-E55E-4C05-BD74-8D6279D46A2D} = {2CE04286-D840-44BF-A0B1-6A9B9CC59063}
+		{384BEFEC-978C-410E-8B3F-E526F3CF29BD} = {B9AD8A7A-738E-4971-99C3-3053F2270F83}
+		{EC560D20-DB99-46A0-8DAA-1C6F910F79A7} = {2CE04286-D840-44BF-A0B1-6A9B9CC59063}
+	EndGlobalSection
+EndGlobal

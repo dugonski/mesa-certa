@@ -1,47 +1,49 @@
 # MesaCerta — aplicação desktop
 
-Protótipo funcional em **JavaScript, Electron e React**, com servidor **Node.js TCP**, mensagens JSON e **Prisma + MySQL 8**. Interface clara em português. Sem Socket.IO, envio à SEFAZ, cobrança financeira ou integração com balança.
+Protótipo funcional em **C# / .NET 8**, com cliente desktop **Avalonia**, servidor **TCP** próprio, mensagens JSON e **EF Core + MySQL 8**. Interface clara em português. Sem envio à SEFAZ, cobrança financeira ou integração com balança.
 
 ## Estrutura
 
 ```text
-apps/
-  desktop/
-    electron/       Janela, IPC seguro, cliente TCP e exportação de XML
-    src/            Páginas React, componentes, formulários e hook de estado
-  server/
-    src/
-      modules/      Autenticação, mesas, fichas, produtos, usuários e pagamentos
-      transport/    Servidor e roteamento TCP
-      database/     Conexão, transações, recibos e consultas comuns
-      fiscal/       Geração do XML
-      config/       Configuração validada
-packages/shared/    Contratos, comandos, permissões, cálculos e protocolo TCP
-prisma/
-  migrations/       Migrações versionadas para MySQL
-  schema.prisma     Modelo de dados
-  seed.js           Usuários e cardápio de demonstração
-scripts/            Inicialização do ambiente de desenvolvimento
-tests/              Testes unitários, integração MySQL/TCP e interface
+src/
+  MesaCerta.Shared/     Contratos, comandos, permissões, cálculos, protocolo TCP e cliente TCP
+  MesaCerta.Server/
+    Config/             .env e configuração validada
+    Data/               EF Core, transações, migrações e mapeamento para DTOs
+    Domain/             Regras de estado, peso, permissões e totais
+    Modules/            Autenticação, mesas, fichas, produtos, usuários, pagamentos e auditoria
+    Transport/          Servidor e roteamento TCP
+    Fiscal/             Geração do XML
+    Maintenance/        Seed, limpeza de fichas e preparo de acesso ao MySQL
+  MesaCerta.Desktop/
+    Services/           Ponte com o servidor, preferências e salvamento de arquivos
+    ViewModels/         Estado da aplicação, telas e janelas de operação (MVVM)
+    Views/              Telas Avalonia (XAML) e tema visual
+database/migrations/    Migrações SQL versionadas para MySQL
+scripts/                Publicação dos executáveis
+tests/
+  MesaCerta.Tests/              Unitários: regras, contratos, protocolo, XML e configuração
+  MesaCerta.IntegrationTests/   MySQL real com três terminais TCP
+  MesaCerta.UiTests/            Interface Avalonia headless contra servidor de fixtures
 ```
 
 Responsabilidades e manutenção dos registros: [Arquitetura](docs/ARCHITECTURE.md).
 
 ## Preparar o banco no Windows
 
-Pré-requisitos: Node.js 22.15 ou superior, npm e MySQL 8 instalado e em execução. Um servidor MySQL80 foi encontrado neste computador. O aplicativo não instala nem altera o serviço do Windows.
+Pré-requisitos: [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) e MySQL 8 instalado e em execução. O aplicativo não instala nem altera o serviço do Windows.
 
-1. Crie um banco dedicado `restaurante` e um usuário com acesso somente a esse banco, usando o MySQL Workbench. Para as migrações, o usuário precisa de permissões DDL nesse banco.
+1. Crie um banco dedicado `restaurante` e um usuário com acesso somente a esse banco, usando o MySQL Workbench. Para as migrações, o usuário precisa de permissões DDL nesse banco. Opcionalmente, `dotnet run --project src/MesaCerta.Server -- prepare-db-access` gera `artifacts/preparar-mysql.sql` com um usuário e senha aleatórios e atualiza o `.env` (nada é executado no MySQL).
 2. Copie `.env.example` para `.env`, se ainda não existir.
 3. Configure `DATABASE_URL` e as três senhas iniciais no `.env`. Caracteres especiais da senha dentro da URL precisam estar codificados (percent-encoding). O `.env` é ignorado pelo Git; não publique credenciais.
 4. Execute na raiz:
 
 ```powershell
-npm install
-npm run db:generate
-npm run db:migrate
-npm run db:seed
+dotnet run --project src/MesaCerta.Server -- migrate
+dotnet run --project src/MesaCerta.Server -- seed
 ```
+
+`migrate` aplica os scripts de `database/migrations` uma única vez. Bancos já criados pela versão anterior (Prisma) são reconhecidos pela tabela `_prisma_migrations` e mantidos como estão: o esquema e os dados são os mesmos.
 
 O seed cria `admin`, `atendente` e `caixa`, com as senhas definidas no `.env`. Não troca senhas existentes. As bebidas de demonstração são criadas somente quando não existe um produto com o mesmo nome. A migração cadastra **Buffet regular** e **Buffet especial carnes** sem preço e inativos: aparecem no pedido com **Definir preço**. O administrador pode selecionar o buffet e clicar em **Definir preço**, ou usar **Produtos → Editar**. Nenhum preço de buffet é presumido.
 
@@ -50,19 +52,16 @@ O seed cria `admin`, `atendente` e `caixa`, com as senhas definidas no `.env`. N
 No computador servidor, deixe este comando em execução:
 
 ```powershell
-npm run server
+dotnet run --project src/MesaCerta.Server
 ```
 
 Em outro terminal, inicie a aplicação:
 
 ```powershell
-npm run build
-npm start
+dotnet run --project src/MesaCerta.Desktop
 ```
 
-Para desenvolver a interface com atualização automática: `npm run dev` (o servidor continua sendo iniciado separadamente).
-
-Na tela de login, informe usuário, senha e um nome para identificar o terminal. Em **Servidor**, configure o endereço e a porta (5050 por padrão). O servidor é um processo separado; o instalador desktop não inicia MySQL ou backend automaticamente.
+Na tela de login, informe usuário, senha e um nome para identificar o terminal. Em **Servidor**, configure o endereço e a porta (5050 por padrão); esses dados ficam em `%AppData%\MesaCerta\connection.json`. O servidor é um processo separado; o aplicativo desktop não inicia MySQL ou backend automaticamente.
 
 ### Dois ou mais terminais
 
@@ -79,7 +78,7 @@ Esta versão usa TCP sem TLS, apropriado apenas para demonstração em rede conf
 5. O servidor registra o pagamento e salva o XML de pré-autorização na mesma transação. A mesa fica **paga** e não recebe novos itens.
 6. **Salvar XML** exporta o documento. **Encerrar ficha** libera a mesa e mantém o atendimento no histórico. Reabrir a mesa cria outra ficha.
 
-A migração das mesas preserva as fichas antigas, exibidas em **Fichas anteriores** quando ainda estão abertas. Não deduzimos uma mesa física pelo texto dessas fichas. A grade distingue livres (verde), ocupadas (azul) e pagas (amarelo), sempre com legenda escrita. Os antigos pratos de demonstração são desativados no catálogo; itens já registrados permanecem inalterados.
+Fichas antigas sem mesa associada aparecem em **Fichas anteriores** quando ainda estão abertas. A grade distingue livres (verde), ocupadas (azul) e pagas (amarelo), sempre com legenda escrita.
 
 | Perfil | Operações |
 |---|---|
@@ -92,34 +91,37 @@ O XML segue a estrutura de pré-autorização da **NFC-e 4.00**, modelo 65, em a
 ## Consistência e segurança
 
 - Valores monetários em centavos inteiros; total calculado exclusivamente no servidor.
-- Buffet: entrada em kg com até três casas decimais e armazenamento em gramas inteiras, preço por kg, arredondamento por item para o centavo mais próximo (meio centavo para cima). Exemplo de cálculo: 0,250 kg × R$ 65,90/kg = R$ 16,48. O peso e o preço aplicado são preservados no item e no XML demonstrativo. Não há leitura de balança.
+- Buffet: entrada em kg com até três casas decimais e armazenamento em gramas inteiras, preço por kg, arredondamento por item para o centavo mais próximo (meio centavo para cima). Exemplo: 0,250 kg × R$ 65,90/kg = R$ 16,48. O peso e o preço aplicado são preservados no item e no XML demonstrativo. Não há leitura de balança.
 - Edição e remoção validam o vínculo do item com a ficha, as permissões e a versão; auditoria registra as alterações. Contas pagas e encerradas não podem ser editadas.
 - Nome e preço do produto copiados para o item no momento do lançamento. Editar o catálogo não altera vendas anteriores.
-- Alterações da ficha usam versão e transação serializável. Ao detectar concorrência, a interface exige nova conferência.
+- Alterações da ficha usam versão e transação `Serializable`, com repetição automática de deadlocks. Ao detectar concorrência, a interface exige nova conferência.
 - Abertura e reserva da mesa ocorrem na mesma transação. Dois terminais não podem criar dois atendimentos ativos para a mesma mesa. O fechamento libera a reserva atomicamente.
 - Cada comando de escrita tem um UUID e recibo persistente na mesma transação; repetir o mesmo comando não duplica a operação.
 - Um pagamento por ficha, protegido por índice único. Pagamento, XML, estado e auditoria são gravados juntos.
-- Senhas com bcrypt, sessões de 12 horas com tokens armazenados como hash e permissões verificadas no servidor.
+- Senhas com bcrypt (compatível com os hashes existentes), sessões de 12 horas com tokens armazenados como hash e permissões verificadas no servidor.
 - Auditoria de operações concluídas com usuário, terminal, ação, entidade, horário e detalhes, sem senha/token. Não equivale a um log externo imutável.
-- Electron com isolamento de contexto, renderer sem Node e ponte IPC limitada. O token fica no processo principal.
-- JSON delimitado por nova linha, limite de frame e tratamento de fragmentação UTF-8. Eventos não enviam dados da venda sem autenticação.
+- O token da sessão fica apenas no cliente TCP; as telas só recebem resultados. O desktop aceita somente as operações previstas para a interface.
+- JSON delimitado por nova linha, limite de 4 MB por mensagem, fila limitada por conexão e tratamento de fragmentação UTF-8. Eventos não enviam dados da venda sem autenticação.
 
-## Testar e gerar instalador
+## Testar e gerar executáveis
 
 ```powershell
-npm test
-npm run test:integration
-npm run build
-node tests/ui-smoke.mjs
-npm run dist
+dotnet test tests/MesaCerta.Tests
+dotnet test tests/MesaCerta.IntegrationTests
+dotnet test tests/MesaCerta.UiTests
+powershell -ExecutionPolicy Bypass -File scripts\publish.ps1
 ```
 
-`npm test` cobre regras e protocolo sem banco. A integração exige MySQL migrado e usa registros identificados exclusivamente para o teste, removendo-os ao terminar. Verifica clientes TCP distintos, permissões, idempotência, concorrência, preço preservado, XML e encerramento. O teste visual abre o Electron contra um servidor TCP de fixtures em memória; ele não comprova persistência MySQL.
+`MesaCerta.Tests` cobre regras e protocolo sem banco. A integração exige MySQL e usa `DATABASE_URL` do `.env` (ou `MESACERTA_TEST_DATABASE_URL`); aplica as migrações pendentes, cria registros identificados exclusivamente para o teste e os remove ao terminar. Sem banco configurado, o teste é ignorado. Ela verifica clientes TCP distintos, permissões, idempotência, concorrência, preço preservado, XML e encerramento. O teste de interface abre as telas Avalonia sem janela visível contra um servidor TCP de fixtures em memória; ele não comprova persistência MySQL. Defina `MESACERTA_SCREENSHOTS` para salvar as capturas de tela.
 
-O instalador Windows será gerado em `release/`. É um pacote de demonstração sem assinatura de código. O backend é distribuído como projeto Node separado.
+O script de publicação gera `release\desktop\MesaCerta.exe` e `release\server\MesaCerta.Server.exe`, autocontidos (não exigem .NET instalado). São pacotes de demonstração sem assinatura de código. Copie o `.env` para a pasta do servidor antes de executá-lo; os subcomandos `migrate`, `seed` e `reset-orders` funcionam igualmente no executável publicado.
+
+## Manutenção
+
+`MesaCerta.Server reset-orders --confirm-reset-fichas` limpa fichas com o servidor parado, depois de gravar e conferir um backup em `backups/`. Detalhes em [Arquitetura](docs/ARCHITECTURE.md#manutenção-dos-registros).
 
 ## Próximas decisões
 
 Fora desta versão: cancelamento de fichas, descontos, taxa de serviço, pagamento dividido, estorno, troca/desativação de usuários, paginação além dos últimos 100 registros no histórico/atividades, recuperação automática após queda, TLS, backups operacionais, atualização automática, fiscal e balança. Essas regras precisam ser definidas antes da implementação.
 
-Referências técnicas: [Electron — isolamento de contexto](https://www.electronjs.org/docs/latest/tutorial/context-isolation), [Prisma 6 — transações](https://www.prisma.io/docs/orm/v6/prisma-client/queries/transactions). Prisma 6 foi fixado para a integração MySQL com o cliente tradicional utilizado neste projeto.
+Referências técnicas: [Avalonia](https://docs.avaloniaui.net/), [EF Core — transações](https://learn.microsoft.com/ef/core/saving/transactions), [Pomelo MySQL](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql).

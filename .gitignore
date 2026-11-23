@@ -1,6 +1,15 @@
-node_modules/
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+.idea/
+TestResults/
+publish/
+
+# Ambiente e dados locais
 .env
-apps/desktop/dist/
 release/
 artifacts/
 backups/
